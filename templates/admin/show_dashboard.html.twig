@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center my-3">Tableau de bord</h1>
+
+{# ################# FLASHES ################# #}
+    <div class="row">
+        <div class="col-6 mx-auto my-4">
+            {% include "include/_flashes.html.twig" %}
+        </div>
+    </div>
+
+{# ################# BUTTONS ################# #}
+    <div class="row my-5 mx-auto">
+        <div class="col-4">
+            <a href="">Ajouter un article</a>
+        </div>
+        <div class="col-4">
+            <a href="">Ajouter une catégorie</a>
+        </div>
+        <div class="col-4">
+            <a href="">Voir les archives</a>
+        </div>
+    </div>
+
+{# ################# TABLE 1 ################# #}
+    <div class="row">
+        <div class="col-10 mx-auto my-4">
+
+            <h2 class="text-center">Tous les articles</h2>
+
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Titre</th>
+                        <th>Contenu</th>
+                        <th>Catégorie</th>
+                        <th>Auteur</th>
+                        <th>Crée le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td class="text-center">{{ article.id }}</td>
+                        <td class="text-center">{{ article.title | length > 20 ? article.title | slice(0,20) ~ '...' : article.title }}</td>
+                        <td class="text-center">{{ article.content| length > 20 ? article.content | slice(0,20) ~ '...' : article.content }}</td>
+                        <td class="text-center">{{ article.category.name }}</td>
+                        <td class="text-center">{{ article.author.fullname }}</td>
+                        <td class="text-center">{{ article.createdAt | date('d/m/Y') }}</td>
+                        <td class="text-center">
+                            <a href="" class="text-info" title="Modifier l'article"><i class="fa fa-edit"></i></a>
+                            <a href="" class="text-danger" title="Archiver l'article" onclick="return confirm('Voulez-vous archiver cet article ?')"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% else %}                    
+                    <tr>
+                        <td colspan="10" class="bg-info text-center align-middle">Aucun article publié</td>
+                    </tr>                    
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+{# ################# TABLE 2 ################# #}
+        <div class="col-6">
+            <h2 class="text-center">Toutes les catégories</h2>
+
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Alias</th>
+                        <th>Créée le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="bg-info text-center align-middle">Aucune catégorie ajoutée</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+{# ################# TABLE 3 ################# #}
+        <div class="col-6">
+            <h2 class="text-center">Tous les utilisateurs</h2>
+
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                        <th>Inscrit le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="text-center">{{ user.id }}</td>
+                        <td class="text-center">{{ user.firstname }}</td>
+                        <td class="text-center">{{ user.lastname }}</td>
+                        <td class="text-center">{{ user.email }}</td>
+                        <td class="text-center">{{ user.roles | first }}</td>
+                        <td class="text-center">{{ user.createdAt | date('d/m/Y') }}</td>
+                        <td class="text-center">
+                            <a href="#" class="text-warning" title="Modifier le rôle"><i class="fa fa-user-edit"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="bg-info text-center align-middle">Aucun utilisateur inscrit</td>
+                    </tr>                    
+                {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
