@@ -27,7 +27,7 @@ class CategoryFormType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Ajouter",
+                'label' => $options['category'] ? "Modifier " . $options['category']->getName() : "Ajouter",
                 'validate' => false,
                 'attr' => [
                     'class' => 'd-block mx-auto my-3 col-4 btn btn-primary'
@@ -40,6 +40,7 @@ class CategoryFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
+            'category' => null
         ]);
     }
 }
