@@ -17,7 +17,7 @@
 	{# ################# BUTTONS ################# #}
 	<div class="row my-5 mx-auto">
 		<div class="col-4">
-			<a class="btn btn-sm btn-outline-dark" href="">Ajouter un article</a>
+			<a class="btn btn-sm btn-outline-dark" href="{{ path('create_article') }}">Ajouter un article</a>
 		</div>
 		<div class="col-4">
 			<a class="btn btn-sm btn-outline-dark" href="{{ path('create_category') }}">Ajouter une catégorie</a>
@@ -55,7 +55,7 @@
 							<td class="text-center">{{ article.author.fullname }}</td>
 							<td class="text-center">{{ article.createdAt | date('d/m/Y') }}</td>
 							<td class="text-center">
-								<a href="" class="text-info" title="Modifier l'article">
+								<a href="{{ path('update_article', {'id': article.id}) }}" class="text-info" title="Modifier l'article">
 									<i class="fa fa-edit"></i>
 								</a>
 								<a href="" class="text-danger" title="Archiver l'article" onclick="return confirm('Voulez-vous archiver cet article ?')">
