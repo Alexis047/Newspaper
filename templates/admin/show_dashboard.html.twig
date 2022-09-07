@@ -58,7 +58,7 @@
 								<a href="{{ path('update_article', {'id': article.id}) }}" class="text-info" title="Modifier l'article">
 									<i class="fa fa-edit"></i>
 								</a>
-								<a href="" class="text-danger" title="Archiver l'article" onclick="return confirm('Voulez-vous archiver cet article ?')">
+								<a href="{{ path('soft_delete_article', {'id': article.id}) }}" class="text-danger" title="Archiver l'article" onclick="return confirm('Voulez-vous archiver cet article ?')">
 									<i class="fa fa-trash"></i>
 								</a>
 							</td>

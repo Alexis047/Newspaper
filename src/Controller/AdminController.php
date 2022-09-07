@@ -16,6 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -31,7 +32,8 @@ class AdminController extends AbstractController
             'categories' => $categories,
             'users' => $users
         ]);
-    } // end function show()
+    } // end function showDashboard()
+
 
     #[Route('/voir-les-archives', name: 'show_archives', methods: ['GET'])]
     public function showArchives(EntityManagerInterface $entityManager): Response
@@ -45,7 +47,8 @@ class AdminController extends AbstractController
             'categories' => $categories,
             'users' => $users
         ]);
-    }
+    } // end function showArchives
+
 
     #[Route('/creer-un-article', name: 'create_article', methods: ['GET', 'POST'])]
     public function createArticle(ArticleRepository $repository, SluggerInterface $slugger, Request $request): Response
@@ -79,7 +82,8 @@ class AdminController extends AbstractController
         return $this->render('admin/form/article.html.twig', [
             'form' => $form->createView()
         ]);
-    } // end function create()
+    } // end function createArticle()
+
 
     #[Route('/modifier-un-article/{id}', name: 'update_article', methods: ['GET', 'POST'])]
     public function updateArticle(Article $article, Request $request, ArticleRepository $repository, SluggerInterface $slugger): Response
@@ -117,7 +121,8 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
             'article' => $article
         ]);
-    } // end function update()
+    } // end function updateArticle()
+
 
     private function handleFile(UploadedFile $photo, SluggerInterface $slugger, Article $article): void
     {
@@ -132,6 +137,47 @@ class AdminController extends AbstractController
         } catch (FileException $exception) {
             // code à exécuter si erreur.
         }
-    }
+    } // end function handleFile()
+
+
+    #[Route('/archiver-un-article/{id}', name: 'soft_delete_article', methods: ['GET'])]
+    public function softDeleteArticle(Article $article, ArticleRepository $repository): RedirectResponse
+    {
+        $article->setDeletedAt(new DateTime());
+
+        $repository->add($article, true);
+
+        $this->addFlash('success', "L'article a bien été archivé. Voir les archives !");
+        return $this->redirectToRoute('show_dashboard');
+    } // end function softDelete()
+
+
+    #[Route('/restaurer-un-article/{id}', name: 'restore_article', methods: ['GET'])]
+    public function restoreArticle(Article $article, ArticleRepository $repository): RedirectResponse
+    {
+        $article->setDeletedAt(null);
+
+        $repository->add($article, true);
+
+        $this->addFlash('success', "L'article a bien été restauré !");
+        return $this->redirectToRoute('show_archives');
+    } // end function restoreArticle()
+
+    #[Route('/supprimer-un-article/{id}', name: 'hard_delete_article', methods: ['GET'])]
+    public function hardDeleteArticle(Article $article, ArticleRepository $repository): RedirectResponse
+    {
+        $photo = $article->getPhoto();
+
+        if($photo){
+            // Pour supprimer un fichier dans le système, on utilise la fonction native de PHP unlink().
+            unlink($this->getParameter('uploads_dir') . '/' . $photo);
+        }
+
+        $repository->remove($article, true);
+
+        $this->addFlash('success', "L'article a bien été supprimé definitivement du système !");
+        return $this->redirectToRoute('show_archives');
+    } // end function hardDeleteArticle()
+
 
 } // end class
