@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Total articles publiés: {{ articles | length }}</h5>
                     <p class="card-text">Mon email : {{ app.user.email }}</p>
-                    <a href="#" class="btn btn-warning">Changer mon mot de passe</a>
+                    <a href="{{ path('change_password') }}" class="btn btn-warning">Changer mon mot de passe</a>
                 </div>
                 <div class="card-footer text-muted">
                     Compte crée {{ app.user.createdAt | ago(locale='fr') }}

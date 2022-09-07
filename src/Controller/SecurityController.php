@@ -38,6 +38,8 @@ class SecurityController extends AbstractController
 
     //      string no index, index name: 'string', index methods: [array de 'string', 'param2']
     #[Route('/inscription', name:'app_register', methods: ['GET', 'POST'])]
+
+    
     public function register(Request $request, UserRepository $repository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
