@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégorie
+	{{ category.name }}
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="text-center my-3">Catégorie
+		{{ category.name }}</h1>
+
+	<div class="row">
+		<div class="col-10 mx-auto">
+
+			{% for article in articles | reverse %}
+
+				<div class="row mb-4 border-top p-3">
+					<a href="{{ path('show_article', {'cat_alias': category.alias, 'art_alias': article.alias, 'id': article.id}) }}" title="Voir l'article" class="d-flex text-decoration-none">
+
+						<div class="col-5">
+                            <img src="{{ asset('uploads/' ~ article.photo) }}" alt="{{ article.title }}" class="img-fluid rounded">
+                        </div>
+
+						<div class="col-7 ms-4">
+                            <h2 class="text-dark align-middle">{{ article.title }}</h2>
+                            <p class="text-muted align-middle">{{ article.subtitle }}</p>
+                        </div>
+
+					</a>
+				</div>
+            {% else %}
+                <h3 class="text-center mt-2">Aucun article pour cette catégorie !</h3>
+
+			{% endfor %}
+
+		</div>
+	</div>
+
+{% endblock %}

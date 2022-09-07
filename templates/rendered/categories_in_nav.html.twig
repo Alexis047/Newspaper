@@ -3,7 +3,7 @@
 
         {% for category in categories %}
             <span>
-                <a href="#" class="text-decoration-none item-hover">{{ category.name }}</a>
+                <a href="{{ path('show_articles_from_category', {alias: category.alias}) }}" class="text-decoration-none item-hover">{{ category.name }}</a>
             </span>
         {% endfor %}
 
