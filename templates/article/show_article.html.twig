@@ -54,6 +54,10 @@
 						<i class="fa-brands fa-twitter"></i>
 						<i class="fa-brands fa-facebook"></i>
 					</p>
+					{% if app.user is same as commentary.author %}
+                            <a href="{{ path('soft_delete_commentary', {'id': commentary.id}) }}?article_id={{ article.id }}" class="float-right"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+
 				</div>
 
 			{% else %}

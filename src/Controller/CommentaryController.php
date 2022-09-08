@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Article;
 use App\Entity\Commentary;
 use App\Form\CommentaryFormType;
 use App\Repository\CommentaryRepository;
-use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommentaryController extends AbstractController
@@ -44,5 +46,24 @@ class CommentaryController extends AbstractController
         return $this->render('rendered/form_commentary.html.twig', [
             'form' => $form->createView()
         ]);
-    }
+    } // end function addCommentary
+
+
+    #[Route('/archiver-un-commentaire/{id}', name: 'soft_delete_commentary', methods: ['GET'])]
+    public function softDeleteCommentary(Commentary $commentary, EntityManagerInterface $entityManager, Request $request): RedirectResponse
+    {
+        $commentary->setDeletedAt(new DateTime());
+
+        $article = $entityManager->getRepository(Article::class)->find($request->query->get('article_id'));
+
+        $entityManager->persist($commentary);
+        $entityManager->flush();
+
+        $this->addFlash('success', "Le commentaire a bien été archivé");
+        return $this->redirectToRoute('show_article', [
+            'cat_alias' => $article->getCategory()->getAlias(),
+            'art_alias' => $article->getAlias(),
+            'id' => $article->getId(),
+        ]);
+    } // end function softDelete()
 }
