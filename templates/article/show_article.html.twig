@@ -6,6 +6,11 @@
 
 {% block body %}
 
+	<div class="row">
+		<div class="col-10 mx-auto my-4">
+			{% include "include/_flashes.html.twig" %}
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col-10 mx-auto mb-4">
@@ -13,12 +18,16 @@
 			<div class="card">
 				<div class="card-header">
 					<h1 class="text-center card-title mb-5">{{ article.title }}</h1>
-                    <h4 class="text-center text-secondary mb-3">{{ article.subtitle }}</h4>
+					<h4 class="text-center text-secondary mb-3">{{ article.subtitle }}</h4>
 				</div>
-                <ul class="list-group list-group flush">
-                    <li class="list-group-item text-center text-muted">Crée {{ article.createdAt | ago(locale='fr')}} | Par <span class="text-underlined">{{ article.author.fullname }}</span></li>
-                </ul>
-                <img src="{{ asset('uploads/' ~ article.photo) }}" alt="{{ article.title }}" class="img-fluid">
+				<ul class="list-group list-group flush">
+					<li class="list-group-item text-center text-muted">Crée
+						{{ article.createdAt | ago(locale='fr')}}
+						| Par
+						<span class="text-underlined">{{ article.author.fullname }}</span>
+					</li>
+				</ul>
+				<img src="{{ asset('uploads/' ~ article.photo) }}" alt="{{ article.title }}" class="img-fluid">
 				<div class="card-body">
 					<p class="card-text col-8 mx-auto my-4">{{ article.content | raw }}</p>
 				</div>
@@ -27,5 +36,37 @@
 		</div>
 	</div>
 
+	{{ render(url('add_commentary', {'id': article.id})) }}
+
+	<h3>Espaces Commentaires :</h3>
+
+	<div class="row">
+		<div class="col-6 mx-auto">
+
+			{% for commentary in commentaries | reverse %}
+
+				<div class="alert alert-dark bg-white my-5" role="alert">
+					<h4 class="alert-heading">{{ commentary.author.fullname }} <span class="h6">posté {{ commentary.createdAt | ago(locale='fr') }}</span></h4>
+					<p>{{ commentary.comment }}</p>
+					<hr>
+					<p class="mb-0">Partager : 
+						<i class="fa-brands fa-instagram"></i>
+						<i class="fa-brands fa-twitter"></i>
+						<i class="fa-brands fa-facebook"></i>
+					</p>
+				</div>
+
+			{% else %}
+
+			<div class="alert alert-warning mb-3 my-5" role="alert">
+			
+				<p class="fw-bolder">Aucun commentaire pour cet article</p>
+
+			</div>
+
+			{% endfor %}
+
+		</div>
+	</div>
 
 {% endblock %}

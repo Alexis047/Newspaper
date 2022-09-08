@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-8 mx-auto my-5">
+    
+        {{ form_start(form, {action: path('add_commentary', {'id': app.request.attributes.get('article').id}) }) }}
+
+            {% if not app.user %}
+
+                <a href="{{ path('app_login') }}" class="d-block mx-auto my-3 col-3 btn btn-warning fw-bolder">Se connecter</a>
+
+            {% endif %}
+
+        {{ form_end(form)}}
+    </div>
+</div>
