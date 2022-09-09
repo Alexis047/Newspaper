@@ -2,6 +2,15 @@
 
 {% block title %}Ajouter un article{% endblock %}
 
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+
+
+{% endblock %}
+
 {% block body %}
 
     {% if article is not defined %}
@@ -9,7 +18,8 @@
     {% else %}
         <h1 class="text-center my-3">Modifier l'article {{ article.title }}</h1>     
     {% endif %}
-    
+
+
     
 
     <div class="row">
