@@ -1,0 +1,25 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[1].use[1]!./assets/styles/app.css ***!
+  \**************************************************************************************************************/
+*, ::before, ::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+}
+
+.item-hover {
+    color: #fff;
+}
+
+.item-hover:hover {
+    color: #ffc107;
+    border-bottom: 1px solid #ffc107;
+    transition: ease-in-out 0.2s;
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtJQUNJLFVBQVU7SUFDVixTQUFTO0lBQ1Qsc0JBQXNCO0FBQzFCOztBQUVBO0lBQ0ksMkJBQTJCO0FBQy9COztBQUVBO0lBQ0ksV0FBVztBQUNmOztBQUVBO0lBQ0ksY0FBYztJQUNkLGdDQUFnQztJQUNoQyw0QkFBNEI7QUFDaEMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvc3R5bGVzL2FwcC5jc3MiXSwic291cmNlc0NvbnRlbnQiOlsiKiwgOjpiZWZvcmUsIDo6YWZ0ZXIge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIG1hcmdpbjogMDtcclxuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbn1cclxuXHJcbmJvZHkge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRncmF5O1xyXG59XHJcblxyXG4uaXRlbS1ob3ZlciB7XHJcbiAgICBjb2xvcjogI2ZmZjtcclxufVxyXG5cclxuLml0ZW0taG92ZXI6aG92ZXIge1xyXG4gICAgY29sb3I6ICNmZmMxMDc7XHJcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgI2ZmYzEwNztcclxuICAgIHRyYW5zaXRpb246IGVhc2UtaW4tb3V0IDAuMnM7XHJcbn1cclxuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9*/
